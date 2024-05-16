@@ -40,8 +40,9 @@ public class DemoS3 {
         return named_bucket;
     }
 
+    // delete buckets 
     public static void deleteBucket(String bucket_name){
-        final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.AP_SOUTH_1).build();
+        final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withCredentials(credentialsProvider).withRegion(Regions.AP_SOUTH_1).build();
         System.out.println(" - removing objects from bucket");
         ObjectListing object_listing = s3.listObjects(bucket_name);
         while (true) {
@@ -61,7 +62,9 @@ public class DemoS3 {
         }
     }
 
+    // create a new bucket
     public static Bucket createBucket(String bucket_name) {
+        // conncect with aws s3 using IAM credentials
         final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withCredentials(credentialsProvider).withRegion(Regions.AP_SOUTH_1).build();
         Bucket b = null;
         if (s3.doesBucketExistV2(bucket_name)) {
@@ -77,7 +80,7 @@ public class DemoS3 {
         return b;
     }
     private static void ListMyBuckets() {
-        final  AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.AP_SOUTH_1).build();
+        final  AmazonS3 s3 = AmazonS3ClientBuilder.standard().withCredentials(credentialsProvider).withRegion(Regions.AP_SOUTH_1).build();
         List<Bucket> buckets = s3.listBuckets();
         System.out.println("My buckets now are:");
         for (Bucket b : buckets) {
@@ -85,9 +88,7 @@ public class DemoS3 {
         }
     }
     public static void main(String[] args) {
-        String bucket = "bucket" + System.currentTimeMillis();
-        Bucket b = createBucket(bucket);
-        System.out.println("Bucket "+b.getName()+" created");
+       ListMyBuckets();
 
     }
 }
