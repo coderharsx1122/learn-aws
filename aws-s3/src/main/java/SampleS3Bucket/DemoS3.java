@@ -22,7 +22,7 @@ public class DemoS3 {
 
     // place access key and secret key in secret file or env file
     private static String awsAccessKey = "your access key";
-    private static String awsSecretKey = "your secret key";
+    private static String awsSecretKey = "";
     private static BasicAWSCredentials awsCredentials = new BasicAWSCredentials(awsAccessKey, awsSecretKey);
     private static AWSStaticCredentialsProvider credentialsProvider = new AWSStaticCredentialsProvider(awsCredentials);
 
